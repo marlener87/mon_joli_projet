@@ -4,16 +4,21 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Auteur;
+use App\Repository\AuteurRepository;
 
 class BdController extends AbstractController
 {
     /**
      * @Route("/auteurs", name="bd")
      */
-    public function index()
+    public function index(AuteurRepository $repo)
     {
+        $auteurs = $repo->findAll();
+        
         return $this->render('bd/index.html.twig', [
             'controller_name' => 'BdController',
+            'auteurs' => $auteurs
         ]);
     }
 

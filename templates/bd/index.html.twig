@@ -7,6 +7,10 @@
 <!-- div.example-wrapper>h1{La liste des auteurs} -->
 <div class="example-wrapper">
     <h1>La liste des auteurs</h1>
+
+    {% for auteur in auteurs %}
+    <h2><a href="{{ path('bd_show') }}">{{ auteur.auteur}} </h2>
+    {% endfor %}
 </div>
 
 {% endblock %}
