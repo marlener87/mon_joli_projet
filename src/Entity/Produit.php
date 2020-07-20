@@ -228,4 +228,14 @@ class Produit
 
         return $this;
     }
+
+/**
+ * Generates the magic method
+ * 
+ */
+public function __toString() {
+    // to show the name of the Produit in the select
+    return $this->produit;
+    // to show the id of the Produit in the select
+}
 }
