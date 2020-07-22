@@ -25,7 +25,7 @@ class Auteur
     private $auteur;
 
     /**
-     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="auteur_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="auteur", orphanRemoval=true)
      */
     private $produits;
 
@@ -63,7 +63,7 @@ class Auteur
     {
         if (!$this->produits->contains($produit)) {
             $this->produits[] = $produit;
-            $produit->setAuteurId($this);
+            $produit->setAuteur($this);
         }
 
         return $this;
@@ -74,8 +74,8 @@ class Auteur
         if ($this->produits->contains($produit)) {
             $this->produits->removeElement($produit);
             // set the owning side to null (unless already changed)
-            if ($produit->getAuteurId() === $this) {
-                $produit->setAuteurId(null);
+            if ($produit->getAuteur() === $this) {
+                $produit->setAuteur(null);
             }
         }
 
