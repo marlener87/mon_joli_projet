@@ -31,15 +31,15 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var array
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles;
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * 
+     * @ORM\Column(type="string", length=255)
      * @Assert\Length(min="7", minMessage="Votre mot de passe doit faire 7 caractères minimum")
-     * @Assert\EqualTo(propertyPath="confirm_password")
      */
     private $password;
 
@@ -83,13 +83,10 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getRoles(): array
+    public function getRoles()
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
