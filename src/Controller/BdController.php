@@ -2,21 +2,35 @@
 
 namespace App\Controller;
 
+use ApiPlatform\Core\DataProvider\PaginatorInterface as DataProviderPaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Auteur;
 use App\Entity\Produit;
 use App\Repository\AuteurRepository;
 use App\Repository\ProduitRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class BdController extends AbstractController
 {
     /**
      * @Route("/auteurs", name="bd")
      */
-    public function index(AuteurRepository $repo)
+    public function index(AuteurRepository $repo, PaginatorInterface $paginator, Request $request)
     {
-        $auteurs = $repo->findAll();
+        $allAuthors = $repo->findAll();
+
+        // Paginate the results of the query
+        //$auteurs = $repo->findAll();
+        $auteurs = $paginator->paginate(
+            //Doctrine Query, nots results
+            $allAuthors,
+            //Defin the page parameter
+            $request->query->getInt('page', 1),
+            //Items per page
+            10
+        );
         
         return $this->render('bd/index.html.twig', [
             'controller_name' => 'BdController',
