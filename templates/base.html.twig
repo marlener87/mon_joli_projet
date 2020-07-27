@@ -38,16 +38,18 @@
                             {{ app.user.username }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="left: -90px">
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
                             <a class="dropdown-item" href="/admin">Tableau de bord</a>
                             <div class="dropdown-divider"></div>
+                        {% endif %}
                             <a class="dropdown-item" href="{{ path('security_logout') }}">Deconnexion</a>
                         </div>
                     </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
-                </li>
-                {% endif %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
+                        </li>
+                    {% endif %}
                 </ul>
 
                 <form class="form-inline my-2 my-lg-0">

@@ -34,7 +34,7 @@ class User implements UserInterface
      * @var array
      * @ORM\Column(type="json")
      */
-    private $roles;
+    private $roles = [];
 
     /**
      * 
@@ -85,8 +85,13 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-
-        return $this->roles;
+        if ($this->roles == Null) {
+            return ['ROLE_USER'];
+        }
+        else {
+            return $this->roles;
+        }
+        
     }
 
     public function setRoles(array $roles): self
