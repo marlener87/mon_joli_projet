@@ -59,6 +59,8 @@
             </div>
         </nav>
         <div class="container">
+            {% include 'flash_messages.html.twig' %}
+            
             {% block body %}{% endblock %}
         </div>
         {% block javascripts %}{% endblock %}
